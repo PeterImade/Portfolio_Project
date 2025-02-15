@@ -1,0 +1,55 @@
+﻿@model Form
+
+@{
+    ViewData["Title"] = "Contact Me";
+}
+
+<div class="container-fluid py-5">
+    <div class="row align-items-center justify-content-center g-4">
+        <!-- Image Section -->
+        <div class="col-12 col-md-6 text-center">
+            <img src="https://res.cloudinary.com/dpkhfcuwi/image/upload/v1739561058/undraw_pic-profile_nr49_mkoipm.png"
+                 class="img-fluid" style="max-width: 100%; height: auto;"
+                 alt="Profile Illustration">
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="col-12 col-md-6 px-3">
+            <h1 class="text-primary fw-bold text-center text-md-start">Contact Me</h1>
+
+            <!-- Success & Error Messages -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
+
+            <form method="post" asp-action="Create" asp-controller="Contact" class="mt-4">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Your Name</label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter your name" required>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Name)</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Your Email</label>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Enter your email" required>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Your Message</label>
+                    <textarea class="form-control" asp-for="Message" rows="4" placeholder="Write your message" required></textarea>
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Message)</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
